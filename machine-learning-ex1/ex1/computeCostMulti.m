@@ -13,9 +13,14 @@ J = 0;
 % Instructions: Compute the cost of a particular choice of theta
 %               You should set J to the cost.
 
+features = size(theta,1); % thetas, or features = size(X,2)
 
+foo = 0;
+for t = 1:features
+    foo = foo + theta(t)*X(:,t);
+end
 
-
+J = (1/(2*m)) * sum((foo - y).^2);
 
 % =========================================================================
 
