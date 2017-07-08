@@ -21,12 +21,13 @@ for iter = 1:num_iters
     %prod1 =  (theta(1) + (theta(2)*X(:,1)) - y); fprintf('size prod1: %f\n', size(prod1));
     %prod2 =  X(:,1); fprintf('size prod2: %f\n', size(prod2));
     %prod3 =  (theta(1) + (theta(2)*X(:,1)) - y) .* X(:,1); fprintf('size prod3: %f\n', size(prod3));
-  
-    %sum = 0;
-    %for item = 1:m
-    %    sum = sum + (theta(1) + (theta(2)*X(item,2)) - y) .* X(:,1)));
-    %end
-    t0 = theta(1);
+ 
+    % WRONG, note that the new value of theta(1) is being used in the second statement
+    %theta(1) = theta(1) - ((alpha/m) * sum((theta(1) + (theta(2)*X(:,2)) - y) .* X(:,1)));  % incorrect
+    %theta(2) = theta(2) - ((alpha/m) * sum((theta(1) + (theta(2)*X(:,2)) - y) .* X(:,1)));  % incorrect
+
+    % CORRECT
+    t0 = theta(1); %%% NB: save as temp values
     t1 = theta(2);
     theta(1) = t0 - ((alpha/m) * sum((t0 + (t1*X(:,2)) - y) .* X(:,1)));
     theta(2) = t1 - ((alpha/m) * sum((t0 + (t1*X(:,2)) - y) .* X(:,2)));
@@ -36,7 +37,7 @@ for iter = 1:num_iters
 
     % Save the cost J in every iteration    
     J_history(iter) = computeCost(X, y, theta);
-    fprintf('J[%0004d] = %f\n', iter, J_history(iter));
+    %fprintf('J[%0004d] = %f\n', iter, J_history(iter));
 
 end % for
 
