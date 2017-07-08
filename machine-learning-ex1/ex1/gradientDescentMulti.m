@@ -17,20 +17,21 @@ for iter = 1:num_iters
     %       of the cost function (computeCostMulti) and gradient here.
     %
 
+    ts = theta; % temp thetas
 
-
-
-
-
-
-
-
-
+    for n = 1:size(theta,1)
+        tx = 0; % summation for theta's * x's
+        for c = 1:columns(X)
+            tx = tx + ts(c) * X(:,c);
+        end
+        theta(n) = ts(n) - ((alpha/m) * sum((tx - y) .* X(:,n)));
+    end
 
     % ============================================================
 
     % Save the cost J in every iteration    
     J_history(iter) = computeCostMulti(X, y, theta);
+    %fprintf('J[%0004d] = %f\n', iter, J_history(iter));
 
 end
 
