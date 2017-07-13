@@ -40,16 +40,20 @@ h = sigmoid(X*theta);
 hts = (-1/m) * sum( (y .* log(h)) + (1-y) .* log(1-h));
 
 %% regularized thetas
-regTheta = (lambda/(2*m)) * (sum(theta(2:end).^2));
+temp = theta; temp(1) = 0;
+%regTheta = (lambda/(2*m)) * (sum(theta(2:end).^2)); %working, not vector
+regTheta = (lambda/(2*m)) * (sum(temp.^2));
 
 J = hts + regTheta;
 
 % =============================================================
 % Note: grad should have the same dimensions as theta
 grad = grad(:);
-grad = (1/m) * sum((h-y) .* X);
-temp = theta;
-temp(1) = 0;
-grad = ((1/m) * sum((h-y).*X(:,i))) + ((lambda/m)*temp);
+% compute gradients without regularization
+% grad = (1/m) * sum((h-y) .* X);  %working
+grad = (1/m) * (X'*(h-y));  %working
+
+% take gradients caculated and add regularized values to each gradient
+grad = grad + ((lambda/m)*temp);
 
 end
