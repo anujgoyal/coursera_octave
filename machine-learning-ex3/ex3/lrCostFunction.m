@@ -50,6 +50,6 @@ grad = grad(:);
 grad = (1/m) * sum((h-y) .* X);
 temp = theta;
 temp(1) = 0;
-grad = ((1/m) * sum((h-y).*X(:,i))) + ((lambda/m)*theta(i));
+grad = ((1/m) * sum((h-y).*X(:,i))) + ((lambda/m)*temp);
 
 end
