@@ -29,12 +29,11 @@ X = [ones(m, 1) X];
 %       are in rows, then, you can use max(A, [], 2) to obtain the max 
 %       for each row.
 %       
+p = sigmoid(X*all_theta');
 
-
-
-
-
-
+% find max index for each row
+% each index corresponds to each label
+[val, p] = max(p, [], 2); % find max index for each row
 
 % =========================================================================
 
