@@ -40,8 +40,8 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 
 
-%% Calculate hypothesis
-a1 = [ones(m,1) X];
+%% First, Calculate hypothesis
+a1 = [ones(m,1) X]; % add 1 for bias
 z2 = a1 * Theta1';   % (5000 x 401) X (401 x 25)
 a2 = sigmoid(z2);
 
@@ -51,7 +51,7 @@ a3 = sigmoid(z3);   % (5000 x 10)
 
 h = a3; %fprintf('\n h:      %d x %d\n', rows(h), columns(h));
 
-%% Caculate cost function
+%% Second, Caculate cost function (unregularized)
 yk = ([1:num_labels] == y);
 %fprintf('\n yk:     %d x %d\n', rows(yk), columns(yk));
 %fprintf('\n a1:     %d x %d\n', rows(a1), columns(a1));
@@ -62,7 +62,7 @@ val =  ((-yk' * log(h)) - (1-yk)' * log(1-h));  %fprintf('\n val: %d x %d\n', ro
 % https://www.coursera.org/learn/machine-learning/discussions/weeks/5/threads/AzIrrO7wEeaV3gonaJwAFA 
 J = (1/m) * trace(val);
 
-%% Caculate regularization
+%% Third, Caculate regularization expression, add to previous cost function
 %fprintf('\n Theta1: %d x %d\n', rows(Theta1), columns(Theta1));
 %fprintf('\n Theta2: %d x %d\n', rows(Theta2), columns(Theta2));
 reg = (lambda/(2*m)) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
@@ -89,16 +89,19 @@ J = J + reg;
 %fprintf('\n z2:  %d x %d\n', rows(z2), columns(z2));
 %fprintf('\n Theta2:  %d x %d\n', rows(Theta2), columns(Theta2));
 
-s3 = a3 - yk; % (5000 x 10) - (5000 x 10)
+d3 = a3 - yk; % (5000 x 10) - (5000 x 10)
+d2 = (d3*Theta2(:,2:end)) .* sigmoidGradient(z2);
 
-s2 = (s3*Theta2(:,2:end)) .* sigmoidGradient(z2);
-
-d2 = s3'*a2;
-fprintf('\n s3:  %d x %d\n', rows(s3), columns(s3));
+fprintf('\n d3:  %d x %d\n', rows(d3), columns(d3));
+fprintf('\n d2:  %d x %d\n\n', rows(d2), columns(d2));
+fprintf('\n a1:  %d x %d\n', rows(a1), columns(a1));
 fprintf('\n a2:  %d x %d\n', rows(a2), columns(a2));
-fprintf('\n d2:  %d x %d\n', rows(d2), columns(d2));
 
+Delta2 = d3'*a2(:,2:end);
+Delta1 = d2'*a1(:,2:end);
 
+fprintf('\n Delta1:  %d x %d\n', rows(Delta1), columns(Delta1));
+fprintf('\n Delta2:  %d x %d\n', rows(Delta2), columns(Delta2));
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
