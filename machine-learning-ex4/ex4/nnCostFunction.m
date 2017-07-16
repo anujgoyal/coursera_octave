@@ -84,11 +84,13 @@ J = J + reg;
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
-%
+% https://www.coursera.org/learn/machine-learning/discussions/all/threads/a8Kce_WxEeS16yIACyoj1Q
+
 %fprintf('\n a3:  %d x %d\n', rows(a3), columns(a3));
 %fprintf('\n z2:  %d x %d\n', rows(z2), columns(z2));
 %fprintf('\n Theta2:  %d x %d\n', rows(Theta2), columns(Theta2));
 
+% calculate small deltas
 d3 = a3 - yk; % (5000 x 10) - (5000 x 10)
 d2 = (d3*Theta2(:,2:end)) .* sigmoidGradient(z2);
 
@@ -97,11 +99,13 @@ fprintf('\n d2:  %d x %d\n\n', rows(d2), columns(d2));
 fprintf('\n a1:  %d x %d\n', rows(a1), columns(a1));
 fprintf('\n a2:  %d x %d\n', rows(a2), columns(a2));
 
-Delta2 = d3'*a2(:,2:end);
-Delta1 = d2'*a1(:,2:end);
+% calculate big Deltas, ensure size is correct
+Delta1 = d2'*a1(); fprintf('\n Delta1:  %d x %d\n', rows(Delta1), columns(Delta1));
+Delta2 = d3'*a2(); fprintf('\n Delta2:  %d x %d\n', rows(Delta2), columns(Delta2));
 
-fprintf('\n Delta1:  %d x %d\n', rows(Delta1), columns(Delta1));
-fprintf('\n Delta2:  %d x %d\n', rows(Delta2), columns(Delta2));
+% caculate Theta Gradients
+Theta1_grad = (1/m) * Delta1; fprintf('\n Theta1_grad:  %d x %d\n', rows(Theta1_grad), columns(Theta1_grad));
+Theta2_grad = (1/m) * Delta2; fprintf('\n Theta2_grad:  %d x %d\n', rows(Theta2_grad), columns(Theta2_grad));
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
