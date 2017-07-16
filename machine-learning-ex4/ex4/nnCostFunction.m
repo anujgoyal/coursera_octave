@@ -40,7 +40,7 @@ Theta2_grad = zeros(size(Theta2));
 %         computed in ex4.m
 
 
-% calculate hypothesis
+%% Calculate hypothesis
 a1 = [ones(m,1) X];
 z2 = a1 * Theta1';   % (5000 x 401) X (401 x 25)
 a2 = sigmoid(z2);
@@ -49,19 +49,18 @@ a2 = [ones(size(a2,1), 1) a2]; % add 1 for bias
 z3 = a2* Theta2';    % (5000 x 26) X (26 x 10)
 a3 = sigmoid(z3);   % (5000 x 10)
 
-h = a3;
-%fprintf('\n h:      %d x %d\n', rows(h), columns(h));
-%[val, p]  = max(a3, [], 2); % select index with max value
+h = a3; %fprintf('\n h:      %d x %d\n', rows(h), columns(h));
 
+%% Caculate cost function
 yk = ([1:num_labels] == y);
 %fprintf('\n yk:     %d x %d\n', rows(yk), columns(yk));
 %fprintf('\n a1:     %d x %d\n', rows(a1), columns(a1));
 %fprintf('\n Theta1: %d x %d\n', rows(Theta1), columns(Theta1));
 
-val =  ((-yk' * log(h)) - (1-yk)' * log(1-h));  % see size of Val
+val =  ((-yk' * log(h)) - (1-yk)' * log(1-h));  %fprintf('\n val: %d x %d\n', rows(val), columns(val));
+% had to use trace() and not sum(sum()); 
+% https://www.coursera.org/learn/machine-learning/discussions/weeks/5/threads/AzIrrO7wEeaV3gonaJwAFA 
 J = (1/m) * trace(val);
-%fprintf('\n val: %d x %d\n', rows(val), columns(val));
-%fprintf('\n J: %d x %d\n', rows(J), columns(J));
 
 %% Caculate regularization
 %fprintf('\n Theta1: %d x %d\n', rows(Theta1), columns(Theta1));
@@ -69,6 +68,7 @@ J = (1/m) * trace(val);
 reg = (lambda/(2*m)) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
 
 J = J + reg;
+%fprintf('\n J: %d x %d\n', rows(J), columns(J));
 
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
@@ -85,11 +85,18 @@ J = J + reg;
 %               over the training examples if you are implementing it for the 
 %               first time.
 %
+%fprintf('\n a3:  %d x %d\n', rows(a3), columns(a3));
+%fprintf('\n z2:  %d x %d\n', rows(z2), columns(z2));
+%fprintf('\n Theta2:  %d x %d\n', rows(Theta2), columns(Theta2));
 
+s3 = a3 - yk; % (5000 x 10) - (5000 x 10)
 
+s2 = (s3*Theta2(:,2:end)) .* sigmoidGradient(z2);
 
-
-
+d2 = s3'*a2;
+fprintf('\n s3:  %d x %d\n', rows(s3), columns(s3));
+fprintf('\n a2:  %d x %d\n', rows(a2), columns(a2));
+fprintf('\n d2:  %d x %d\n', rows(d2), columns(d2));
 
 
 
