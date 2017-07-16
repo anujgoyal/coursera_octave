@@ -94,18 +94,23 @@ J = J + reg;
 d3 = a3 - yk; % (5000 x 10) - (5000 x 10)
 d2 = (d3*Theta2(:,2:end)) .* sigmoidGradient(z2);
 
-fprintf('\n d3:  %d x %d\n', rows(d3), columns(d3));
-fprintf('\n d2:  %d x %d\n\n', rows(d2), columns(d2));
-fprintf('\n a1:  %d x %d\n', rows(a1), columns(a1));
-fprintf('\n a2:  %d x %d\n', rows(a2), columns(a2));
+%fprintf('\n d3:  %d x %d\n', rows(d3), columns(d3));
+%fprintf('\n d2:  %d x %d\n\n', rows(d2), columns(d2));
+%fprintf('\n a1:  %d x %d\n', rows(a1), columns(a1));
+%fprintf('\n a2:  %d x %d\n', rows(a2), columns(a2));
 
 % calculate big Deltas, ensure size is correct
-Delta1 = d2'*a1(); fprintf('\n Delta1:  %d x %d\n', rows(Delta1), columns(Delta1));
-Delta2 = d3'*a2(); fprintf('\n Delta2:  %d x %d\n', rows(Delta2), columns(Delta2));
+Delta1 = d2'*a1();
+Delta2 = d3'*a2();
 
 % caculate Theta Gradients
-Theta1_grad = (1/m) * Delta1; fprintf('\n Theta1_grad:  %d x %d\n', rows(Theta1_grad), columns(Theta1_grad));
-Theta2_grad = (1/m) * Delta2; fprintf('\n Theta2_grad:  %d x %d\n', rows(Theta2_grad), columns(Theta2_grad));
+Theta1_grad = (1/m) * Delta1;
+Theta2_grad = (1/m) * Delta2;
+
+%fprintf('\n Theta2_grad:  %d x %d\n', rows(Theta2_grad), columns(Theta2_grad));
+%fprintf('\n Theta1_grad:  %d x %d\n', rows(Theta1_grad), columns(Theta1_grad));
+%fprintf('\n Delta2:  %d x %d\n', rows(Delta2), columns(Delta2));
+%fprintf('\n Delta1:  %d x %d\n', rows(Delta1), columns(Delta1));
 
 % Part 3: Implement regularization with the cost function and gradients.
 %
