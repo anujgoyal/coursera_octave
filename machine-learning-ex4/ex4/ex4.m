@@ -41,7 +41,7 @@ sel = sel(1:100);
 
 %displayData(X(sel, :));
 %fprintf('Program paused. Press enter to continue.\n');
-%pause;
+%pause; // ANUJ
 
 %% ================ Part 2: Loading Parameters ================
 % In this part of the exercise, we load some pre-initialized 
@@ -78,7 +78,6 @@ fprintf(['Cost at parameters (loaded from ex4weights): %f \n(this value should b
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
-%exit;
 
 %% =============== Part 4: Implement Regularization ===============
 %  Once your cost function implementation is correct, you should now
