@@ -29,12 +29,18 @@ J = ((1/(2*m)) * sum( (X*theta - y).^2 )); % uses full theta
 temp = theta; temp(1) = 0;   % have to zero out first column
 J = J + (lambda/(2*m) * sum(temp.^2));
 
+% test cases
+% https://www.coursera.org/learn/machine-learning/discussions/all/threads/O25D0QykEeWZSyIAC5bWOg
+
 % gradient calculation function
-grad = (1/m) * sum((X*theta - y) .* X);
-grad = grad + (lambda/m)*temp;
+% grad = (1/m) * sum((X*theta - y) .* X ) % THIS IS WRONG
+% AG: trick/property in ex3.pdf where sum((h(X)-y)*X) =  X'*(h(x)-y)
+grad = (1/m) * (X' * (X*theta - y));
+temp = theta; temp(1) = 0; 
+grad = grad + ((lambda/m)*temp);
 
 % =========================================================================
 
-grad = grad(:);
+grad = grad(:); % vector to list
 
 end
