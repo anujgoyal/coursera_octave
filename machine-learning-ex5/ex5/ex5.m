@@ -90,6 +90,7 @@ plot(X, y, 'rx', 'MarkerSize', 10, 'LineWidth', 1.5);
 xlabel('Change in water level (x)');
 ylabel('Water flowing out of the dam (y)');
 hold on;
+% AG: Y = [ones(m,1) X]*theta, this is the hypothesis w/ linear regression
 plot(X, [ones(m, 1) X]*theta, '--', 'LineWidth', 2)
 hold off;
 
