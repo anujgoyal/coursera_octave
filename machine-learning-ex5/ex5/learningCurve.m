@@ -1,5 +1,4 @@
-function [error_train, error_val] = ...
-    learningCurve(X, y, Xval, yval, lambda)
+function [error_train, error_val] = learningCurve(X, y, Xval, yval, lambda)
 %LEARNINGCURVE Generates the train and cross validation set errors needed 
 %to plot a learning curve
 %   [error_train, error_val] = ...
@@ -52,13 +51,19 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
+for i = 1:m
+    % compute best theta assuming minimal J, pass lambda through
+    theta = trainLinearReg( X(1:i,:), y(1:i), lambda);
 
+    % compute training error, lambda = 0
+    [J, grad] = linearRegCostFunction( X(1:i,:), y(1:i), theta, 0);
+    error_train(i) = J; 
 
+    % compute cross-validation error, lambda = 0
+    [J, grad] = linearRegCostFunction(Xval, yval, theta, 0);
+    error_val(i) = J; 
 
-
-
-
-
+end
 % -------------------------------------------------------------
 
 % =========================================================================
