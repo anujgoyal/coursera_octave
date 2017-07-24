@@ -15,11 +15,11 @@ X_poly = zeros(numel(X), p);
 
 %fprintf('X: %d x %d\n', rows(X), columns(X));
 % smoosh X into a vector
-xv = X(:) 
+xv = X(:);
 %fprintf('xv: %d x %d\n', rows(xv), columns(xv));
 
 % create vector of 1..p
-pv = [1:p]
+pv = [1:p];
 
 X_poly = xv.^pv;
 
