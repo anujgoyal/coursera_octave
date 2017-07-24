@@ -166,6 +166,8 @@ pause;
 %
 
 lambda = 0;
+%lambda = 100; % overfitted
+lambda = 3; % AG: best answer based on the Validation Curve
 [theta] = trainLinearReg(X_poly, y, lambda);
 
 % Plot training data and fit
