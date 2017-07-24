@@ -36,17 +36,23 @@ error_val = zeros(length(lambda_vec), 1);
 %           ....
 %           
 %       end
-%
-%
 
+lv = lambda_vec(:);
 
+for i = 1:length(lambda_vec)
+    lambda = lambda_vec(i)
 
+    % compute best theta assuming minimal J, pass lambda through
+    theta = trainLinearReg( X, y, lambda);
 
+    % compute training error, lambda = 0
+    [J, grad] = linearRegCostFunction( X, y, theta, 0);
+    error_train(i) = J; 
 
-
-
-
-
+    % compute cross-validation error, lambda = 0
+    [J, grad] = linearRegCostFunction(Xval, yval, theta, 0);
+    error_val(i) = J; 
+end
 
 % =========================================================================
 
