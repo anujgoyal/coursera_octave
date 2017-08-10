@@ -19,29 +19,22 @@ idx = zeros(size(X,1), 1);
 %               range 1..K
 %
 % Note: You can use a for-loop over the examples to compute this.
+% https://en.wikibooks.org/wiki/Octave_Programming_Tutorial/Linear_algebra
 
-fprintf('X: %d x %d\n', rows(X), columns(X));
+% https://www.coursera.org/learn/machine-learning/discussions/weeks/8/threads/ncYc-ddQEeWaURKFEvfOjQ
+
+% create a distance matrix
+distance = zeros(length(X), K);
+
+% loop through each centroid and calculate distance
 for k = 1:K
-    foo = (X - centroids(k,:)).^2;
-    foo = sum(foo)
-
-    % calculate mindist for first centroid
-    mindist = abs(sum(X(i,:) - centroids(1,:))); % matrix(i,:) gets whole row
-    idx(i) = 1;
-    % NB: mindist is a vector, sum up the vector
-
-    % loop through each centroid and find minimal distance, store centroid index
-    for c = 2:K
-        dist = abs(sum(X(i,:) - centroids(c,:)));
-        fprintf('d: %d, m: %d\n', dist, mindist)
-        if (dist < mindist)
-            fprintf('changed! idx(%d): %d\n', i, c);
-            mindist = dist;
-            idx(i) = c;
-        end
-    end
-    fprintf('final idx(%d): %d\n\n', i, idx(i));
+    % calculate distance
+    d = bsxfun(@minus, X, centroids(k,:) );
+    % store sum of differences
+    distance(:,k) = sum(d.^2,2);
 end
+
+[foo,idx] = min(distance, [], 2);
 
 % =============================================================
 end
