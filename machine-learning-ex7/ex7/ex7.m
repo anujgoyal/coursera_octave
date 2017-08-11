@@ -126,11 +126,10 @@ X = reshape(A, img_size(1) * img_size(2), 3);
 
 % Run your K-Means algorithm on this data
 % You should try different values of K and max_iters here
-K = 16; 
+K = 16;
 max_iters = 10;
 
-% When using K-Means, it is important the initialize the centroids
-% randomly. 
+% When using K-Means, it is important the initialize the centroids randomly. 
 % You should complete the code in kMeansInitCentroids.m before proceeding
 initial_centroids = kMeansInitCentroids(X, K);
 
