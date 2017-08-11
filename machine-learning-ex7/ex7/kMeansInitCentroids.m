@@ -9,18 +9,13 @@ function centroids = kMeansInitCentroids(X, K)
 centroids = zeros(K, size(X, 2));
 
 % ====================== YOUR CODE HERE ======================
-% Instructions: You should set centroids to randomly chosen examples from
-%               the dataset X
-%
+% Instructions: Set centroids to randomly chosen examples from dataset X
 
+% ramdomly permute the indices of X
+randomIdx = randperm(size(X,1));
 
-
-
-
-
-
+% pick first K examples
+centroids = X(randomIdx(1:K), :);
 
 % =============================================================
-
 end
-
