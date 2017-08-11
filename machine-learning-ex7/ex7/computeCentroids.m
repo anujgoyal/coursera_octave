@@ -29,11 +29,10 @@ centroids = zeros(K, n);
 % should contain the mean of the data points assigned to centroid i.
 % Note: You can use a for-loop over the centroids to compute this.
 
-for c = 1:length(K)
+for c = 1:K
     % find distances
-    % dist = X(find(idx==c)) - K(c,:);
-    dist = bsxfun(@minus, X(find(idx==c),:), K(c,:));
-    centroids(c,:) = mean(dist);
+    %dist = bsxfun(@minus, X(find(idx==c),:), K(c,:)); % WRONG
+    centroids(c,:) = mean( X(find(idx==c),:));
 end
 
 % =============================================================
