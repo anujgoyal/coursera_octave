@@ -147,7 +147,9 @@ fprintf('\nDimension reduction for face dataset.\n\n');
 K = 100;
 Z = projectData(X_norm, U, K);
 
-fprintf('The projected data Z has a size of: ')
+fprintf('The Normalized X has a size of: ')
+fprintf('%d ', size(X));
+fprintf('\nThe projected data Z has a size of: ');
 fprintf('%d ', size(Z));
 
 fprintf('\n\nProgram paused. Press enter to continue.\n');
