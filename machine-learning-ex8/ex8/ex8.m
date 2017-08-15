@@ -83,6 +83,7 @@ fprintf('   (you should see a Best F1 value of  0.875000)\n\n');
 
 %  Find the outliers in the training set and plot the
 outliers = find(p < epsilon);
+fprintf('# Outliers found: %d\n\n', sum(p < epsilon)); % AG
 
 %  Draw a red circle around those outliers
 hold on
