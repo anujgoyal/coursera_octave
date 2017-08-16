@@ -26,18 +26,22 @@ Theta_grad = zeros(size(Theta));
 %  X_grad - num_movies x num_features matrix, containing the partial derivatives w.r.t. to each element of X
 %  Theta_grad - num_users x num_features matrix, containing the partial derivatives w.r.t. to each element of Theta
 
-J = (1/2) * sum(sum( ((X*Theta' - Y).^2).*R)); % remember have to sum(sum(...)) for a matrix
-
-fprintf('X: %d x %d\n', rows(X), columns(X));
-fprintf('Theta: %d x %d\n', rows(Theta), columns(Theta));
-fprintf('Y: %d x %d\n', rows(Y), columns(Y));
-fprintf('R: %d x %d\n', rows(R), columns(R));
+% fprintf('X: %d x %d\n', rows(X), columns(X));
+% fprintf('Theta: %d x %d\n', rows(Theta), columns(Theta));
+% fprintf('Y: %d x %d\n', rows(Y), columns(Y));
+% fprintf('R: %d x %d\n', rows(R), columns(R));
 
 % X: 5 x 3
 % Theta: 4 x 3
 % Y: 5 x 4
 % R: 5 x 4
 
+%%% Step 1: calculate cost w/o regularization
+J = (1/2) * sum(sum( ((X*Theta' - Y).^2).*R)); % remember have to sum(sum(...)) for a matrix
+%%% Step 3: now add the regularization
+J = J + ((lambda/2)*sum(sum(Theta.*2))) + ((lambda/2)*sum(sum(X.*2)));
+
+%%% Step 2: initial attempt
 %for i = 1:num_movies
 %    idx = find( R(i,:)==1 );
 %    Theta_temp = Theta(idx,:);
@@ -49,15 +53,6 @@ fprintf('R: %d x %d\n', rows(R), columns(R));
 %    %fprintf(' Theta_temp:  %d x %d\n', rows(Theta_temp), columns(Theta_temp));
 %    X_grad(i,:) = (X(i,:)*Theta_temp' - Y_temp)*Theta_temp;
 %end
-
-X_grad= ((X*Theta' - Y).*R) *Theta;
-fprintf('X_grad:  %d x %d\n', rows(X_grad), columns(X_grad));
-
-%X_grad = ((X*Theta' - Y)*Theta) .* R;
-
-Theta_grad = ((X*Theta').*R - (Y.*R))' * X;
-fprintf('Theta_grad:  %d x %d\n', rows(Theta_grad), columns(Theta_grad));
-
 %for j = 1:num_users
 %    idx = find( R(:,j)==1 );
 %    %Theta_temp = Theta(:,idx);
@@ -71,6 +66,11 @@ fprintf('Theta_grad:  %d x %d\n', rows(Theta_grad), columns(Theta_grad));
 %    fprintf('X(:,j):  %d x %d\n', rows(X(:,j)), columns(X(:,j)));
 %    Theta_grad(j,:) = (X(:,j)*Theta_temp' - Y_temp)*X(:,j);
 %end
+
+%%% Step 2: caculate gradients for X and Theta
+X_grad= ((X*Theta' - Y).*R) *Theta; %fprintf('X_grad:  %d x %d\n', rows(X_grad), columns(X_grad));
+Theta_grad = ((X*Theta').*R - (Y.*R))' * X; %fprintf('Theta_grad:  %d x %d\n', rows(Theta_grad), columns(Theta_grad));
+
 
 % =============================================================
 grad = [X_grad(:); Theta_grad(:)];
