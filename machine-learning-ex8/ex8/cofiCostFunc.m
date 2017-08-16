@@ -39,7 +39,7 @@ Theta_grad = zeros(size(Theta));
 %%% Step 1: calculate cost w/o regularization
 J = (1/2) * sum(sum( ((X*Theta' - Y).^2).*R)); % remember have to sum(sum(...)) for a matrix
 %%% Step 3: now add the regularization
-J = J + ((lambda/2)*sum(sum(Theta.*2))) + ((lambda/2)*sum(sum(X.*2)));
+J = J + ((lambda/2)*sum(sum(Theta.^2))) + ((lambda/2)*sum(sum(X.^2)));
 
 %%% Step 2: initial attempt
 %for i = 1:num_movies
