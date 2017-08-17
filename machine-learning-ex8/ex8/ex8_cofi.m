@@ -18,21 +18,16 @@
 %% =============== Part 1: Loading movie ratings dataset ================
 %  You will start by loading the movie ratings dataset to understand the
 %  structure of the data.
-%  
 fprintf('Loading movie ratings dataset.\n\n');
 
 %  Load data
 load ('ex8_movies.mat');
 
-%  Y is a 1682x943 matrix, containing ratings (1-5) of 1682 movies on 
-%  943 users
-%
-%  R is a 1682x943 matrix, where R(i,j) = 1 if and only if user j gave a
-%  rating to movie i
+%  Y is a 1682x943 matrix, containing ratings (1-5) of 1682 movies on 943 users
+%  R is a 1682x943 matrix, where R(i,j) = 1 if and only if user j gave a rating to movie i
 
 %  From the matrix, we can compute statistics like average rating.
-fprintf('Average rating for movie 1 (Toy Story): %f / 5\n\n', ...
-        mean(Y(1, R(1, :))));
+fprintf('Average rating for movie 1 (Toy Story): %f / 5\n\n', mean(Y(1, R(1, :))));
 
 %  We can "visualize" the ratings matrix by plotting it with imagesc
 imagesc(Y);
@@ -59,15 +54,13 @@ Y = Y(1:num_movies, 1:num_users);
 R = R(1:num_movies, 1:num_users);
 
 %  Evaluate cost function
-J = cofiCostFunc([X(:) ; Theta(:)], Y, R, num_users, num_movies, ...
-               num_features, 0);
+J = cofiCostFunc([X(:) ; Theta(:)], Y, R, num_users, num_movies, num_features, 0);
            
 fprintf(['Cost at loaded parameters: %f '...
          '\n(this value should be about 22.22)\n'], J);
 
 fprintf('\nProgram paused. Press enter to continue.\n');
 pause;
-
 
 %% ============== Part 3: Collaborative Filtering Gradient ==============
 %  Once your cost function matches up with ours, you should now implement 
@@ -224,14 +217,12 @@ movieList = loadMovieList();
 fprintf('\nTop recommendations for you:\n');
 for i=1:10
     j = ix(i);
-    fprintf('Predicting rating %.1f for movie %s\n', my_predictions(j), ...
-            movieList{j});
+    fprintf('Predicting rating %.1f for movie %s\n', my_predictions(j), movieList{j});
 end
 
 fprintf('\n\nOriginal ratings provided:\n');
 for i = 1:length(my_ratings)
     if my_ratings(i) > 0 
-        fprintf('Rated %d for %s\n', my_ratings(i), ...
-                 movieList{i});
+        fprintf('Rated %d for %s\n', my_ratings(i), movieList{i});
     end
 end
