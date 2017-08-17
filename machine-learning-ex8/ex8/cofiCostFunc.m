@@ -69,8 +69,12 @@ J = J + ((lambda/2)*sum(sum(Theta.^2))) + ((lambda/2)*sum(sum(X.^2)));
 
 %%% Step 2: caculate gradients for X and Theta
 X_grad= ((X*Theta' - Y).*R) *Theta; %fprintf('X_grad:  %d x %d\n', rows(X_grad), columns(X_grad));
+%% NB: have to element multiply by R and then transpose the difference before multiplying by X
 Theta_grad = ((X*Theta').*R - (Y.*R))' * X; %fprintf('Theta_grad:  %d x %d\n', rows(Theta_grad), columns(Theta_grad));
 
+%%% Step 4: caculate gradients for X and Theta with regularization
+X_grad= ((X*Theta' - Y).*R) *Theta  +  lambda*X; 
+Theta_grad = ((X*Theta').*R - (Y.*R))'*X  + lambda*Theta; 
 
 % =============================================================
 grad = [X_grad(:); Theta_grad(:)];
